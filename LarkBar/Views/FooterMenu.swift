@@ -22,7 +22,7 @@ struct FooterMenu: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             MenuToggleRow(title: "Show Battery in Menu Bar", isOn: $showBatteryInMenuBar)
-            MenuToggleRow(title: "Open at Login", isOn: Binding(get: { launchAtLogin }, set: setLaunchAtLogin))
+            MenuToggleRow(title: "Open at Login", isOn: Binding(get: { launchAtLogin }, set: { setLaunchAtLogin($0) }))
             if let loginItemError {
                 Text(loginItemError)
                     .font(.caption)
