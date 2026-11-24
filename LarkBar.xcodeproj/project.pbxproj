@@ -1,0 +1,505 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		06131DA20FB2CB38F49EDF34 /* LarkBarApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA55C5BB5C3BC529F9083814 /* LarkBarApp.swift */; };
+		07F239D6565D4160E5A6942B /* LarkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34761829B7012EB6C66886C8 /* LarkProtocol.swift */; };
+		0F58D9B08952B5FBEC8A1997 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CCC2EA8B0147DE75573C48A9 /* Assets.xcassets */; };
+		0F6E46E66651C5CD618C6118 /* MenuContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E92B4A91091FFECE718563 /* MenuContentView.swift */; };
+		14D1F79F8B9D50CAB6BCB0BA /* ReceiverStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5303E6139D2322CC69C4CE26 /* ReceiverStatus.swift */; };
+		9EA5A6CC59B198A5DBEA739C /* ReceiverControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4089B4FF83D3875F3E358412 /* ReceiverControls.swift */; };
+		B794E6604724CC312858684C /* LarkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E55E141ACB702B1847B97E /* LarkModel.swift */; };
+		D0CA93599B24DE7D42A8C49D /* FooterMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74492FF6D9AEFE8270A580CA /* FooterMenu.swift */; };
+		D3DF9B98E91D3D6F65B0B887 /* DebugSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45548C202DC278B4D5A608B8 /* DebugSnapshot.swift */; };
+		D800568FFD50F607C106F0E1 /* LarkProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61FE587022C695F3F021753 /* LarkProtocolTests.swift */; };
+		E41DE54B7BF188E4E5B09B59 /* HollylandHID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE389DB3B844FFE06C4F15B /* HollylandHID.swift */; };
+		F27FFE23C0D81F99D4AA76A5 /* ReceiverStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7A3CEF55772B2568CBC8E5 /* ReceiverStore.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7765FBEC3EF5B38E6B67DBF2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8A0AB6CDDDF205D1CD5556DE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4EDBD441355AE8AAD967BF00;
+			remoteInfo = LarkBar;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1C2512CD412160FD66A90E8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		34761829B7012EB6C66886C8 /* LarkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LarkProtocol.swift; sourceTree = "<group>"; };
+		39E92B4A91091FFECE718563 /* MenuContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuContentView.swift; sourceTree = "<group>"; };
+		4089B4FF83D3875F3E358412 /* ReceiverControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiverControls.swift; sourceTree = "<group>"; };
+		45548C202DC278B4D5A608B8 /* DebugSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugSnapshot.swift; sourceTree = "<group>"; };
+		4CE389DB3B844FFE06C4F15B /* HollylandHID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HollylandHID.swift; sourceTree = "<group>"; };
+		5303E6139D2322CC69C4CE26 /* ReceiverStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiverStatus.swift; sourceTree = "<group>"; };
+		5861C61374A21945329F6D56 /* LarkBarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LarkBarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		74492FF6D9AEFE8270A580CA /* FooterMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterMenu.swift; sourceTree = "<group>"; };
+		8E58227B7A2FED2836A8022D /* LarkBar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LarkBar.entitlements; sourceTree = "<group>"; };
+		94E3FA8D64414038BA32228A /* LarkBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LarkBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A7A3CEF55772B2568CBC8E5 /* ReceiverStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiverStore.swift; sourceTree = "<group>"; };
+		BA55C5BB5C3BC529F9083814 /* LarkBarApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LarkBarApp.swift; sourceTree = "<group>"; };
+		CCC2EA8B0147DE75573C48A9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F3E55E141ACB702B1847B97E /* LarkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LarkModel.swift; sourceTree = "<group>"; };
+		F61FE587022C695F3F021753 /* LarkProtocolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LarkProtocolTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		3315CA085564A2978772EAB3 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				45548C202DC278B4D5A608B8 /* DebugSnapshot.swift */,
+				BA55C5BB5C3BC529F9083814 /* LarkBarApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		6E705F17AF0C5B16D66C7B89 = {
+			isa = PBXGroup;
+			children = (
+				FF9BC2E2AD80F3140046A6F9 /* LarkBar */,
+				D569282D33380B5959267C80 /* LarkBarTests */,
+				F90B34A4074EACF7B2518B71 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9F78F7135DE755ACCF5117E4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				CCC2EA8B0147DE75573C48A9 /* Assets.xcassets */,
+				1C2512CD412160FD66A90E8C /* Info.plist */,
+				8E58227B7A2FED2836A8022D /* LarkBar.entitlements */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		A5B068D9678667209E83C562 /* Devices */ = {
+			isa = PBXGroup;
+			children = (
+				4CE389DB3B844FFE06C4F15B /* HollylandHID.swift */,
+				F3E55E141ACB702B1847B97E /* LarkModel.swift */,
+				34761829B7012EB6C66886C8 /* LarkProtocol.swift */,
+				5303E6139D2322CC69C4CE26 /* ReceiverStatus.swift */,
+			);
+			path = Devices;
+			sourceTree = "<group>";
+		};
+		BEBFD37532B02ED81D02BEBE /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				9A7A3CEF55772B2568CBC8E5 /* ReceiverStore.swift */,
+			);
+			path = Store;
+			sourceTree = "<group>";
+		};
+		D569282D33380B5959267C80 /* LarkBarTests */ = {
+			isa = PBXGroup;
+			children = (
+				F61FE587022C695F3F021753 /* LarkProtocolTests.swift */,
+			);
+			path = LarkBarTests;
+			sourceTree = "<group>";
+		};
+		EFFEF3EF32087001F67A9337 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				74492FF6D9AEFE8270A580CA /* FooterMenu.swift */,
+				39E92B4A91091FFECE718563 /* MenuContentView.swift */,
+				4089B4FF83D3875F3E358412 /* ReceiverControls.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		F90B34A4074EACF7B2518B71 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				94E3FA8D64414038BA32228A /* LarkBar.app */,
+				5861C61374A21945329F6D56 /* LarkBarTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FF9BC2E2AD80F3140046A6F9 /* LarkBar */ = {
+			isa = PBXGroup;
+			children = (
+				3315CA085564A2978772EAB3 /* App */,
+				A5B068D9678667209E83C562 /* Devices */,
+				9F78F7135DE755ACCF5117E4 /* Resources */,
+				BEBFD37532B02ED81D02BEBE /* Store */,
+				EFFEF3EF32087001F67A9337 /* Views */,
+			);
+			path = LarkBar;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4EDBD441355AE8AAD967BF00 /* LarkBar */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6E1F5CE906845097A344D2B7 /* Build configuration list for PBXNativeTarget "LarkBar" */;
+			buildPhases = (
+				FC21BF5DACE92671CC50418E /* Sources */,
+				6D4450B77C86200C4EB8F9F3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LarkBar;
+			packageProductDependencies = (
+			);
+			productName = LarkBar;
+			productReference = 94E3FA8D64414038BA32228A /* LarkBar.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F6AE77DD4DDC61CF7373A80B /* LarkBarTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B25900A81C918B551C53767F /* Build configuration list for PBXNativeTarget "LarkBarTests" */;
+			buildPhases = (
+				89E6E6093F44451B663C3C05 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E104FD00A5CAD56EE67F15A3 /* PBXTargetDependency */,
+			);
+			name = LarkBarTests;
+			packageProductDependencies = (
+			);
+			productName = LarkBarTests;
+			productReference = 5861C61374A21945329F6D56 /* LarkBarTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8A0AB6CDDDF205D1CD5556DE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					4EDBD441355AE8AAD967BF00 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Manual;
+					};
+					F6AE77DD4DDC61CF7373A80B = {
+						ProvisioningStyle = Manual;
+					};
+				};
+			};
+			buildConfigurationList = 264C7DCD68CC646D69ED5557 /* Build configuration list for PBXProject "LarkBar" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 6E705F17AF0C5B16D66C7B89;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = F90B34A4074EACF7B2518B71 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4EDBD441355AE8AAD967BF00 /* LarkBar */,
+				F6AE77DD4DDC61CF7373A80B /* LarkBarTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6D4450B77C86200C4EB8F9F3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0F58D9B08952B5FBEC8A1997 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		89E6E6093F44451B663C3C05 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D800568FFD50F607C106F0E1 /* LarkProtocolTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FC21BF5DACE92671CC50418E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3DF9B98E91D3D6F65B0B887 /* DebugSnapshot.swift in Sources */,
+				D0CA93599B24DE7D42A8C49D /* FooterMenu.swift in Sources */,
+				E41DE54B7BF188E4E5B09B59 /* HollylandHID.swift in Sources */,
+				06131DA20FB2CB38F49EDF34 /* LarkBarApp.swift in Sources */,
+				B794E6604724CC312858684C /* LarkModel.swift in Sources */,
+				07F239D6565D4160E5A6942B /* LarkProtocol.swift in Sources */,
+				0F6E46E66651C5CD618C6118 /* MenuContentView.swift in Sources */,
+				9EA5A6CC59B198A5DBEA739C /* ReceiverControls.swift in Sources */,
+				14D1F79F8B9D50CAB6BCB0BA /* ReceiverStatus.swift in Sources */,
+				F27FFE23C0D81F99D4AA76A5 /* ReceiverStore.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E104FD00A5CAD56EE67F15A3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4EDBD441355AE8AAD967BF00 /* LarkBar */;
+			targetProxy = 7765FBEC3EF5B38E6B67DBF2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1AC8A18C7850D9F8F88DE06B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = LarkBar/Resources/LarkBar.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = LarkBar/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ubiqapps.larkbar;
+				PRODUCT_NAME = LarkBar;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		394E1643174B973A2C754D45 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.0.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		8EE8CF79FDF4373ECF8B2579 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ubiqapps.larkbar.tests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LarkBar.app/Contents/MacOS/LarkBar";
+			};
+			name = Release;
+		};
+		CFCAC7037213B29327A8CA95 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = LarkBar/Resources/LarkBar.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = LarkBar/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ubiqapps.larkbar;
+				PRODUCT_NAME = LarkBar;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		DFD72C4D2CC91A6E64E1B194 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.0.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		F26CA403B5B668D680C88CC9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ubiqapps.larkbar.tests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LarkBar.app/Contents/MacOS/LarkBar";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		264C7DCD68CC646D69ED5557 /* Build configuration list for PBXProject "LarkBar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DFD72C4D2CC91A6E64E1B194 /* Debug */,
+				394E1643174B973A2C754D45 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		6E1F5CE906845097A344D2B7 /* Build configuration list for PBXNativeTarget "LarkBar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1AC8A18C7850D9F8F88DE06B /* Debug */,
+				CFCAC7037213B29327A8CA95 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		B25900A81C918B551C53767F /* Build configuration list for PBXNativeTarget "LarkBarTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F26CA403B5B668D680C88CC9 /* Debug */,
+				8EE8CF79FDF4373ECF8B2579 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8A0AB6CDDDF205D1CD5556DE /* Project object */;
+}
