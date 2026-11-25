@@ -94,6 +94,18 @@ xcodebuild -project LarkBar.xcodeproj -scheme LarkBar -configuration Release \
 ditto "$ARCHIVE/Products/Applications/LarkBar.app" "$APP"
 
 if [ "$SIGN" = 1 ]; then
+  # Xcode signs the embedded Sparkle.framework but not the helpers inside it. Notarization needs
+  # every binary signed with our Developer ID + hardened runtime, so re-sign inside-out.
+  step "Re-signing Sparkle's helpers with Developer ID"
+  sign() { codesign --force --options runtime --timestamp --sign "$IDENTITY_SHA" "$@"; }
+  FW="$APP/Contents/Frameworks/Sparkle.framework"
+  sign "$FW/Versions/B/XPCServices/Installer.xpc"
+  sign --preserve-metadata=entitlements "$FW/Versions/B/XPCServices/Downloader.xpc"
+  sign "$FW/Versions/B/Autoupdate"
+  sign "$FW/Versions/B/Updater.app"
+  sign "$FW"
+  sign --entitlements LarkBar/Resources/LarkBar.entitlements "$APP"
+
   step "Verifying the Developer ID signature"
   codesign --verify --deep --strict --verbose=2 "$APP"
   codesign -dvv "$APP" 2>&1 | grep -E "Authority=Developer ID Application|flags=.*runtime" >/dev/null \
@@ -141,11 +153,38 @@ if [ "$NOTARIZE" = 1 ]; then
   spctl --assess --type execute --verbose "$APP"
 fi
 
+# --- Sparkle appcast --------------------------------------------------------------------------
+# Installed copies check releases/latest/download/appcast.xml daily. The zip is signed with the
+# EdDSA key in the login keychain (Sparkle account "larkbar"; backup in the Passwords app).
+step "Signing the update for Sparkle"
+SPARKLE_BIN="$ROOT/build/DerivedData/SourcePackages/artifacts/sparkle/Sparkle/bin"
+SIG_ATTRS="$("$SPARKLE_BIN/sign_update" --account larkbar "$ZIP")"
+BUILD="$(sed -nE 's/^ *CURRENT_PROJECT_VERSION: *"?([^"]+)"?$/\1/p' project.yml | head -1)"
+MIN_OS="$(sed -nE 's/^ *MACOSX_DEPLOYMENT_TARGET: *"?([^"]+)"?$/\1/p' project.yml | head -1)"
+REPO_URL="https://github.com/rajatkapoor/larkbar"
+cat > "$OUT/appcast.xml" <<EOF
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
+  <channel>
+    <title>LarkBar</title>
+    <item>
+      <title>Version $VERSION</title>
+      <pubDate>$(LC_ALL=C date -u "+%a, %d %b %Y %H:%M:%S +0000")</pubDate>
+      <sparkle:version>$BUILD</sparkle:version>
+      <sparkle:shortVersionString>$VERSION</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>$MIN_OS</sparkle:minimumSystemVersion>
+      <sparkle:releaseNotesLink>$REPO_URL/releases/tag/v$VERSION</sparkle:releaseNotesLink>
+      <enclosure url="$REPO_URL/releases/download/v$VERSION/$(basename "$ZIP")" type="application/octet-stream" $SIG_ATTRS />
+    </item>
+  </channel>
+</rss>
+EOF
+
 (cd "$OUT" && shasum -a 256 "$(basename "$DMG")" "$(basename "$ZIP")" > SHA256SUMS.txt)
 
 echo
 echo "Release $VERSION ready in $OUT:"
-ls -1 "$OUT" | grep -E '\.(dmg|zip|txt)$' | sed 's/^/  /'
+ls -1 "$OUT" | grep -E '\.(dmg|zip|txt|xml)$' | sed 's/^/  /'
 [ "$SIGN" = 1 ] || echo "  (ad-hoc signed: macOS will ask you to approve it in Privacy & Security on first launch)"
 [ "$SIGN" = 0 ] || [ "$NOTARIZE" = 1 ] || echo "  (not notarized: first launch needs Open Anyway in Privacy & Security)"
 
@@ -156,9 +195,9 @@ if [ "$PUBLISH" = 1 ]; then
   [ -f "$NOTES" ] || fail "Write the release notes in $NOTES first."
   git push origin HEAD
   if gh release view "v$VERSION" >/dev/null 2>&1; then
-    gh release upload "v$VERSION" "$DMG" "$ZIP" "$OUT/SHA256SUMS.txt" --clobber
+    gh release upload "v$VERSION" "$DMG" "$ZIP" "$OUT/SHA256SUMS.txt" "$OUT/appcast.xml" --clobber
   else
-    gh release create "v$VERSION" "$DMG" "$ZIP" "$OUT/SHA256SUMS.txt" \
+    gh release create "v$VERSION" "$DMG" "$ZIP" "$OUT/SHA256SUMS.txt" "$OUT/appcast.xml" \
       --title "LarkBar $VERSION" --notes-file "$NOTES" --target "$(git rev-parse HEAD)"
   fi
 fi

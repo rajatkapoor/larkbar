@@ -48,6 +48,10 @@ If you own one, [open an issue](https://github.com/rajatkapoor/larkbar/issues/ne
 
 Requires macOS 14 Sonoma or later, on Apple silicon or Intel.
 
+LarkBar checks for updates once a day and asks before installing one. You can also choose
+**Check for Updates…** in its menu. (Versions before 0.0.3 can't update themselves: download 0.0.3
+once by hand.)
+
 **If macOS says it can't verify LarkBar**, the build you downloaded isn't notarized by Apple yet
 (the release notes say so). Open **System Settings → Privacy & Security**, scroll down, and click
 **Open Anyway** next to the LarkBar message. Or run:

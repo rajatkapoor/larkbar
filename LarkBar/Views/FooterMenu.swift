@@ -21,6 +21,7 @@ struct FooterMenu: View {
     @AppStorage(MenuBarStyle.storageKey) private var menuBarStyle = MenuBarStyle.battery
     @State private var launchAtLogin = SMAppService.mainApp.status == .enabled
     @State private var loginItemError: String?
+    private var updater = Updater.shared
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -36,6 +37,11 @@ struct FooterMenu: View {
                     .padding(.horizontal, 9)
             }
             Divider().padding(.vertical, 4)
+            if let version = updater.availableVersion {
+                MenuButtonRow(title: "Update Available: \(version)…", trailing: nil) { updater.checkForUpdates() }
+            } else {
+                MenuButtonRow(title: "Check for Updates…", trailing: nil) { updater.checkForUpdates() }
+            }
             MenuButtonRow(title: "LarkBar on GitHub", trailing: AppLinks.version) {
                 NSWorkspace.shared.open(AppLinks.repository)
             }

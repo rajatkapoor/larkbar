@@ -9,6 +9,7 @@ struct LarkBarApp: App {
         let store = ReceiverStore()
         store.start()
         _store = State(initialValue: store)
+        _ = Updater.shared // start Sparkle's daily update checks
         #if DEBUG
         DebugSnapshot.runIfRequested(store: store)
         #endif
