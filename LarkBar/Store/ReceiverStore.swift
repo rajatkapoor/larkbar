@@ -23,6 +23,8 @@ final class ReceiverStore {
     private(set) var changeError: String?
     /// Changes still in flight. Polling pauses so it can't overwrite them with stale values.
     private(set) var pendingChanges = 0
+    /// Voice levels from the receiver's audio input, shown while the menu is open.
+    let meter = InputLevelMeter()
 
     /// Polls quickly while the menu is open so mics powering on or off show up promptly.
     var isMenuOpen = false {
@@ -32,6 +34,10 @@ final class ReceiverStore {
     private static let logger = Logger(subsystem: "com.ubiqapps.larkbar", category: "Receiver")
     private let hid = HollylandHID()
     private var isRefreshing = false
+    #if DEBUG
+    /// Debug snapshots: stop reading the real receiver so made-up state stays on screen.
+    fileprivate var debugFrozen = false
+    #endif
     private var pollTask: Task<Void, Never>?
 
     init() {
@@ -96,6 +102,9 @@ final class ReceiverStore {
     }
 
     func refresh() async {
+        #if DEBUG
+        if debugFrozen { return }
+        #endif
         guard !isRefreshing, pendingChanges == 0 else { return }
         isRefreshing = true
         defer { isRefreshing = false }
@@ -141,3 +150,23 @@ final class ReceiverStore {
         }
     }
 }
+
+#if DEBUG
+extension ReceiverStore {
+    /// Debug snapshots only: shows a made-up receiver with mics on and stops reading the real one.
+    func debugShowFakeReceiver(channelMode: ChannelMode, micsOn: Int) {
+        var payload = [UInt8](repeating: 0, count: 17)
+        for i in 0..<min(micsOn, 2) { payload[i] = 1; payload[2 + i] = i == 0 ? 82 : 47 }
+        payload[8] = 4; payload[9] = UInt8(channelMode.rawValue); payload[12] = 3
+        guard let status = try? ReceiverStatus(heartbeat: payload, version: .v2) else { return }
+        debugFrozen = true
+        state = .connected(HollylandDevice(locationID: 1, productID: 0x0407, productName: "Wireless Microphone",
+                                           model: .larkA1), status)
+        firmwareVersion = "1.0.2.12"
+    }
+}
+
+extension InputLevelMeter {
+    func debugSetLevels(_ levels: [Float]) { debugLevels = levels }
+}
+#endif

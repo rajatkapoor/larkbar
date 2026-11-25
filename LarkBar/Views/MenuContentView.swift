@@ -33,7 +33,7 @@ struct MenuContentView: View {
             .padding(14)
 
             Divider()
-            FooterMenu()
+            FooterMenu(micsOn: store.status?.connectedTransmitters ?? [])
                 .padding(5)
         }
         .frame(width: 340)

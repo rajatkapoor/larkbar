@@ -1,20 +1,34 @@
 # LarkBar
 
 A small macOS menu bar app for **Hollyland Lark** wireless mics. Plug the Lark USB receiver into your
-Mac and LarkBar shows each mic's battery in the menu bar and lets you change the receiver's
+Mac and LarkBar shows each mic's battery and voice level, and lets you change the receiver's
 settings without your phone or the LarkSound app.
 
 <img src="docs/screenshot-dark.png" width="340" alt="LarkBar menu with mic batteries, sound and receiver settings">
 
 - Detects which Hollyland receiver is plugged in, and notices when you plug it in or pull it out.
-- Battery level and on/off state for every mic, with the lowest battery shown in the menu bar.
-- Mute each mic, set gain, noise cancelling, EQ, reverb, and mono/stereo.
+- Battery level and on/off state for every mic.
+- Live voice level bars, so you can see each mic picking you up (optional, see below).
+- A mute button for each mic.
+- Gain, noise cancelling, EQ, reverb, and mono/stereo. These are receiver settings shared by
+  all mics; the Lark doesn't support different sound settings per mic.
 - Receiver settings: auto power off, signal mode, status light, performance mode, identify, restart.
 - Only shows the controls your receiver supports.
-- Menu bar only: no Dock icon, no windows. Optional Open at Login.
+- Menu bar only: no Dock icon, no windows. Choose what the menu bar shows: just the icon, each
+  mic's battery percentage, or a small battery bar per mic. Optional Open at Login.
 
-LarkBar talks only to the receiver's control interface, so the mics keep working as an audio input
-while it runs. It needs no special permissions and makes no network requests.
+LarkBar talks to the receiver's control interface, so the mics keep working as an audio input
+while it runs. It makes no network requests.
+
+### Voice levels and microphone permission
+
+Voice levels are off until you click **Show Voice Levels**. macOS then asks for microphone
+permission, because the levels are measured from the receiver's audio input. LarkBar only
+measures loudness, only while its menu is open, and never records or sends audio anywhere.
+
+In **Stereo**, each mic is on its own channel, so every mic gets its own level bar. In **Mono**, the
+receiver mixes the mics into one signal before it reaches the Mac, so with more than one mic on you
+get a single combined bar.
 
 ## Supported receivers
 

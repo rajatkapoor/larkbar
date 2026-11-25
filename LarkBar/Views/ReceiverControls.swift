@@ -7,6 +7,7 @@ struct ReceiverControls: View {
     let status: ReceiverStatus
 
     @AppStorage("showReceiverSettings") private var showReceiverSettings = false
+    @AppStorage("showVoiceLevels") private var showVoiceLevels = false
     @State private var confirmingRestart = false
 
     var body: some View {
@@ -23,12 +24,92 @@ struct ReceiverControls: View {
     private var mics: some View {
         Section {
             ForEach(status.transmitters) { mic in
-                MicRow(mic: mic, canMute: model.supportsMute) {
+                MicRow(mic: mic, canMute: model.supportsMute, level: level(for: mic)) {
                     store.apply(.mute(transmitter: mic.index, muted: !mic.isMuted))
                 }
             }
+            if !status.connectedTransmitters.isEmpty {
+                voiceLevels
+            }
         } header: {
             SectionTitle("Mics")
+        }
+    }
+
+    // MARK: Voice levels
+
+    private var isMeasuring: Bool {
+        showVoiceLevels && store.meter.access == .granted && store.meter.problem == nil
+    }
+
+    /// Stereo puts Mic 1 on the left channel and Mic 2 on the right, so each mic has its own level.
+    private var hasPerMicChannels: Bool { status.channelMode == .stereo }
+
+    /// The level to show inside a mic's row, when it can be told apart from the others.
+    /// Mono mixes every mic into one signal, so it's only attributable when a single mic is on.
+    private func level(for mic: Transmitter) -> Float? {
+        guard isMeasuring, mic.isConnected else { return nil }
+        let levels = store.meter.levels
+        if hasPerMicChannels {
+            let channel = mic.index - 1
+            return channel < levels.count ? levels[channel] : 0
+        }
+        return status.connectedTransmitters.count == 1 ? (levels.max() ?? 0) : nil
+    }
+
+    @ViewBuilder
+    private var voiceLevels: some View {
+        let meter = store.meter
+        if showVoiceLevels && meter.access == .granted {
+            VStack(alignment: .leading, spacing: 6) {
+                if let problem = meter.problem {
+                    Text(problem).font(.caption).foregroundStyle(.secondary)
+                } else if !hasPerMicChannels && status.connectedTransmitters.count > 1 {
+                    // In Mono the receiver mixes the mics, so only their combined level exists.
+                    LevelRow(title: "All mics", level: meter.levels.max() ?? 0)
+                        .help("In Mono the receiver mixes the mics together. Switch Channels to Stereo for a level per mic.")
+                }
+                HStack {
+                    Spacer()
+                    Button("Hide Voice Levels") { showVoiceLevels = false }
+                        .buttonStyle(.link)
+                        .font(.caption)
+                }
+            }
+            .padding(.top, 2)
+            .task(id: store.device?.usbID) {
+                guard let usbID = store.device?.usbID else { return }
+                await meter.start(usbID: usbID)
+                while !Task.isCancelled {
+                    meter.poll()
+                    try? await Task.sleep(for: .milliseconds(50))
+                }
+                meter.stop()
+            }
+        } else if showVoiceLevels && meter.access == .denied {
+            VStack(alignment: .leading, spacing: 4) {
+                Text("To show voice levels, allow LarkBar to use the microphone.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                HStack {
+                    Button("Open Privacy Settings") {
+                        NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Microphone")!)
+                    }
+                    Button("Hide") { showVoiceLevels = false }
+                }
+                .controlSize(.small)
+            }
+        } else {
+            Button {
+                Task {
+                    if meter.access == .notAsked { _ = await meter.requestAccess() }
+                    showVoiceLevels = true
+                }
+            } label: {
+                Label("Show Voice Levels", systemImage: "waveform")
+            }
+            .controlSize(.small)
+            .help("Shows how loud your voice is coming in, next to each mic. In Mono with several mics on, the receiver mixes them, so you get one combined bar. LarkBar only measures the level; it never records audio.")
         }
     }
 
@@ -91,7 +172,7 @@ struct ReceiverControls: View {
                 .help("Stereo puts Mic 1 on the left channel and Mic 2 on the right.")
             }
         } header: {
-            SectionTitle("Sound")
+            SectionTitle("Sound (all mics)")
         }
     }
 
@@ -253,9 +334,55 @@ private struct SettingRow<Control: View>: View {
     }
 }
 
+/// A label and a level meter, for the combined level of several mics.
+private struct LevelRow: View {
+    let title: String
+    let level: Float
+
+    var body: some View {
+        HStack(spacing: 10) {
+            Text(title)
+                .font(.callout)
+                .foregroundStyle(.secondary)
+            LevelMeter(level: level, segments: 20)
+        }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("\(title) level")
+        .accessibilityValue("\(Int(level * 100)) percent")
+    }
+}
+
+/// A segmented level meter, like the input level meter in Sound settings.
+private struct LevelMeter: View {
+    let level: Float
+    let segments: Int
+
+    var body: some View {
+        HStack(spacing: 2) {
+            ForEach(0..<segments, id: \.self) { index in
+                RoundedRectangle(cornerRadius: 1.5, style: .continuous)
+                    .fill(index < lit ? color(for: index) : Color.primary.opacity(0.12))
+            }
+        }
+        .frame(height: 8)
+        .animation(.linear(duration: 0.08), value: lit)
+    }
+
+    private var lit: Int { Int((level * Float(segments)).rounded()) }
+
+    private func color(for index: Int) -> Color {
+        let position = Double(index) / Double(segments)
+        if position >= 0.9 { return .red }
+        if position >= 0.75 { return .yellow }
+        return .green
+    }
+}
+
 private struct MicRow: View {
     let mic: Transmitter
     let canMute: Bool
+    /// Voice level 0…1, shown when it can be measured for this mic.
+    let level: Float?
     let toggleMute: () -> Void
 
     var body: some View {
@@ -263,17 +390,19 @@ private struct MicRow: View {
             if canMute {
                 Button(action: toggleMute) {
                     Image(systemName: mic.isMuted ? "mic.slash.fill" : "mic.fill")
-                        .foregroundStyle(mic.isMuted ? .red : .primary)
-                        .frame(width: 22, height: 22)
-                        .contentShape(Rectangle())
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundStyle(mic.isMuted ? Color.white : Color.primary)
+                        .frame(width: 28, height: 28)
+                        .background(Circle().fill(mic.isMuted ? Color.red : Color.primary.opacity(0.1)))
+                        .contentShape(Circle())
                 }
-                .buttonStyle(.borderless)
+                .buttonStyle(.plain)
                 .disabled(!mic.isConnected)
                 .help(mic.isConnected ? (mic.isMuted ? "Unmute \(mic.name)" : "Mute \(mic.name)") : "\(mic.name) is off")
                 .accessibilityLabel(mic.isMuted ? "Unmute \(mic.name)" : "Mute \(mic.name)")
             } else {
                 Image(systemName: "mic.fill")
-                    .frame(width: 22, height: 22)
+                    .frame(width: 28, height: 28)
             }
 
             Text(mic.name)
@@ -282,7 +411,13 @@ private struct MicRow: View {
                     .font(.caption)
                     .foregroundStyle(.red)
             }
-            Spacer()
+            Spacer(minLength: 8)
+            if let level {
+                LevelMeter(level: level, segments: 14)
+                    .frame(width: 96)
+                    .accessibilityLabel("\(mic.name) voice level")
+                    .accessibilityValue("\(Int(level * 100)) percent")
+            }
             if mic.isConnected {
                 Text("\(mic.battery)%")
                     .monospacedDigit()

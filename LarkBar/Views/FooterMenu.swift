@@ -15,13 +15,19 @@ enum AppLinks {
 
 /// Menu-style rows at the bottom of the window: app preferences, links and Quit.
 struct FooterMenu: View {
-    @AppStorage("showBatteryInMenuBar") private var showBatteryInMenuBar = true
+    /// Mics that are on, so the menu bar previews match what the menu bar will show.
+    let micsOn: [Transmitter]
+
+    @AppStorage(MenuBarStyle.storageKey) private var menuBarStyle = MenuBarStyle.battery
     @State private var launchAtLogin = SMAppService.mainApp.status == .enabled
     @State private var loginItemError: String?
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            MenuToggleRow(title: "Show Battery in Menu Bar", isOn: $showBatteryInMenuBar)
+            MenuBarStyleChooser(selection: $menuBarStyle, batteries: previewBatteries)
+                .padding(.horizontal, 9)
+                .padding(.top, 4)
+                .padding(.bottom, 6)
             MenuToggleRow(title: "Open at Login", isOn: Binding(get: { launchAtLogin }, set: { setLaunchAtLogin($0) }))
             if let loginItemError {
                 Text(loginItemError)
@@ -38,6 +44,11 @@ struct FooterMenu: View {
             }
             .keyboardShortcut("q")
         }
+    }
+
+    /// The connected mics' batteries, or a sample when none are on so the previews still show.
+    private var previewBatteries: [Int] {
+        micsOn.isEmpty ? [80] : micsOn.map(\.battery)
     }
 
     private func setLaunchAtLogin(_ enabled: Bool) {
@@ -100,5 +111,44 @@ private struct MenuButtonRow: View {
         }
         .buttonStyle(.plain)
         .onHover { isHovered = $0 }
+    }
+}
+
+/// Three tiles previewing the menu bar item in each style, for however many mics are on.
+private struct MenuBarStyleChooser: View {
+    @Binding var selection: MenuBarStyle
+    let batteries: [Int]
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text("Menu Bar")
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(.secondary)
+            HStack(spacing: 8) {
+                ForEach(MenuBarStyle.allCases) { style in
+                    Button { selection = style } label: {
+                        VStack(spacing: 5) {
+                            MenuBarIcon(style: style, symbol: "mic.fill", batteries: batteries)
+                                .font(.system(size: 13))
+                                .lineLimit(1)
+                                .fixedSize()
+                                .frame(maxWidth: .infinity, minHeight: 30)
+                                .background(.quaternary.opacity(0.6), in: RoundedRectangle(cornerRadius: 6, style: .continuous))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 6, style: .continuous)
+                                        .strokeBorder(selection == style ? Color.accentColor : .clear, lineWidth: 2)
+                                )
+                            Text(style.title)
+                                .font(.caption)
+                                .foregroundStyle(selection == style ? .primary : .secondary)
+                        }
+                        .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityLabel("Menu bar shows \(style.title)")
+                    .accessibilityAddTraits(selection == style ? .isSelected : [])
+                }
+            }
+        }
     }
 }

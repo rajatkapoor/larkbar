@@ -159,3 +159,14 @@ struct LarkProtocolTests {
         #expect(status.applying(.light(on: false)).lightOn == false)
     }
 }
+
+struct InputLevelMeterTests {
+    @Test("Decibels map onto the meter's 0…1 range")
+    func normalizesDecibels() {
+        #expect(InputLevelMeter.normalized(0) == 1)
+        #expect(InputLevelMeter.normalized(-30) == 0.5)
+        #expect(InputLevelMeter.normalized(-80) == 0)
+        #expect(InputLevelMeter.normalized(6) == 1)
+        #expect(InputLevelMeter.normalized(-.infinity) == 0)
+    }
+}
