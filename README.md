@@ -85,7 +85,7 @@ same 64-byte request/reply frames the LarkSound app does.
 - `LarkBar/Devices/HollylandHID.swift`: device discovery and the IOKit transport.
 
 The protocol was reverse-engineered by [larkctl](https://github.com/blchinezu/larkctl), a Linux CLI
-for the same receivers. LarkBar is an independent Swift implementation.
+for the same receivers (see [License and credits](#license-and-credits)).
 
 ## Contributing
 
@@ -94,9 +94,21 @@ Lark A1. For protocol changes, please add a test in `LarkBarTests` with a captur
 
 Maintainers: see [RELEASING.md](RELEASING.md) for cutting a release.
 
-## License
+## No warranty
 
-MIT. See [LICENSE](LICENSE).
+LarkBar is provided **as is, with no warranty of any kind**, express or implied. It changes settings
+on your receiver using an undocumented protocol that Hollyland doesn't support for third parties.
+Use it at your own risk. The authors aren't liable for any damage, data loss, missed recordings or
+other problems that come from using it. See the [license](LICENSE) for the full terms.
+
+## License and credits
+
+LarkBar is released under the [MIT License](LICENSE).
+
+It has no third-party dependencies: it uses only Apple's system frameworks (SwiftUI, AppKit,
+IOKit, ServiceManagement). The Lark control protocol was learned from
+[larkctl](https://github.com/blchinezu/larkctl), which documents it for Linux. No code from larkctl
+is included; LarkBar is an independent Swift implementation. The app icon is original artwork.
 
 LarkBar is an unofficial project and isn't affiliated with or endorsed by Hollyland. Hollyland and
 Lark are trademarks of their owner.
